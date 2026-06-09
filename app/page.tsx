@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -52,15 +51,19 @@ export default function Home() {
     <>
       <main className="min-h-screen bg-black text-white overflow-x-hidden">
         {/* ── STICKY NAV WRAPPER ── */}
-        <div className={`nav-wrapper${scrolled ? " scrolled" : ""}`}>
-          <div className={`promo-bar${scrolled ? " hidden" : ""}`}>
+        <div className={`nav-wrapper ${scrolled ? "scrolled" : ""}`}>
+          <div className={`promo-bar ${scrolled ? "promo-hidden" : ""}`}>
             Free Shipping on Orders Over ₦150,000 &nbsp;•&nbsp; Code:{" "}
             <strong>WELCOME150</strong>
           </div>
 
           <header className="navbar">
             <nav className="nav-inner">
-              <button data-testid="nav-menu-button" className="nav-menu-btn">
+              <button
+                data-testid="nav-menu-button"
+                className="nav-menu-btn"
+                aria-label="Toggle Menu"
+              >
                 <div className="hamburger">
                   <span />
                   <span />
@@ -70,23 +73,27 @@ export default function Home() {
               </button>
 
               {/* <a href="/us" className="nav-logo">
-                <Image
-                  src="/logo-white.webp"
-                  alt="GraceT Hair"
-                  width={180}
-                  height={70}
-                  priority
-                />
-              </a> */}
+        <Image
+          src="/logo-white.webp"
+          alt="GraceT Hair"
+          width={180}
+          height={70}
+          priority
+        />
+      </a> */}
 
               <div className="nav-links">
-                <a href="/us/store" className="nav-link">
+                <a href="/us/store" className="nav-link shop-link">
                   Shop
                 </a>
-                <a href="/us/account" className="nav-link">
+                <a href="/us/account" className="nav-link account-link">
                   Login
                 </a>
-                <a href="/us/cart" className="nav-cart">
+                <a
+                  href="/us/cart"
+                  className="nav-cart"
+                  aria-label={`Cart with ${cartCount} items`}
+                >
                   <svg
                     width="15"
                     height="15"
@@ -99,7 +106,7 @@ export default function Home() {
                     <circle cx="20" cy="21" r="1" />
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                   </svg>
-                  Cart
+                  <span className="cart-text">Cart</span>
                   <span className="cart-badge">{cartCount}</span>
                 </a>
               </div>
@@ -301,13 +308,13 @@ export default function Home() {
         </section>
       </main>
       {/* ── FOOTER ── */}
-      <footer className="border-t border-white/10 bg-black">
+      <footer className="border-t border-white/10 bg-linear-to-t from-black to-[#050505]">
         <div className="max-w-7xl mx-auto px-6 py-14">
           <div className="flex flex-col md:flex-row justify-between items-center gap-10">
             {/* Brand */}
             <div className="text-center md:text-left">
               <h3 className="text-white text-xl font-semibold tracking-[0.25em]">
-                GRACE-T HAIR
+                GraceT HAIR
               </h3>
 
               <p className="mt-3 text-white/50 max-w-sm text-sm leading-relaxed">
@@ -346,7 +353,7 @@ export default function Home() {
                 href="https://x.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/50 hover:text-[#BBE917] transition-all duration-300 hover:scale-110"
+                className="h-11 w-11 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-accent hover:text-accent transition-all duration-300"
                 aria-label="X"
               >
                 <FaXTwitter size={18} />
@@ -356,7 +363,7 @@ export default function Home() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/50 hover:text-[#BBE917] transition-all duration-300 hover:scale-110"
+                className="h-11 w-11 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-accent hover:text-accent transition-all duration-300"
                 aria-label="Instagram"
               >
                 <FaInstagram size={18} />
@@ -366,7 +373,7 @@ export default function Home() {
                 href="https://tiktok.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/50 hover:text-[#BBE917] transition-all duration-300 hover:scale-110"
+                className="h-11 w-11 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-accent hover:text-accent transition-all duration-300"
                 aria-label="TikTok"
               >
                 <FaTiktok size={18} />
@@ -376,7 +383,7 @@ export default function Home() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/50 hover:text-[#BBE917] transition-all duration-300 hover:scale-110"
+                className="h-11 w-11 rounded-full border border-white/10 bg-white/5 flex items-center justify-center hover:border-accent hover:text-accent transition-all duration-300"
                 aria-label="Facebook"
               >
                 <FaFacebookF size={18} />
@@ -387,7 +394,7 @@ export default function Home() {
           {/* Bottom Bar */}
           <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-white/40 text-sm">
-              © {new Date().getFullYear()} GRACE-T HAIR. All rights reserved.
+              © {new Date().getFullYear()} GraceT HAIR. All rights reserved.
             </p>
 
             <div className="flex gap-6 text-xs text-white/40">

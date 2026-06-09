@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap");
 
 :root {
   --background: #000000;
@@ -8,14 +7,15 @@
   --accent: #bbe917;
   --accent-dark: #9dcb00;
 
-  --font-display: "Cormorant Garamond", serif;
-  --font-body: "DM Sans", sans-serif;
+  --font-display: serif;
+  --font-body: var(--font-geist-mono);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -34,7 +34,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -57,11 +57,11 @@ a {
   left: 0;
   right: 0;
   z-index: 100;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .promo-bar {
-  background: var(--accent);
+  background: var(--accent, #e5c158); /* Added fallback */
   color: #000;
   text-align: center;
   padding: 0.5rem 1rem;
@@ -71,20 +71,24 @@ a {
   text-transform: uppercase;
   overflow: hidden;
   transition:
-    max-height 0.4s ease,
-    opacity 0.4s ease;
+    max-height 0.3s ease,
+    opacity 0.3s ease,
+    padding 0.3s ease;
   max-height: 40px;
   opacity: 1;
 }
 
-.promo-bar.hidden {
+/* Explicitly handles the scrolled state collapse */
+.promo-bar.promo-hidden {
   max-height: 0;
+  padding: 0 1rem;
   opacity: 0;
 }
 
 .navbar {
   background: rgba(0, 0, 0, 0);
   backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px); /* Safari support */
   border-bottom: 1px solid transparent;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -92,6 +96,7 @@ a {
 .nav-wrapper.scrolled .navbar {
   background: rgba(5, 5, 5, 0.92);
   backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
@@ -112,16 +117,17 @@ a {
   background: none;
   border: none;
   color: #fff;
-  font-family: var(--font-body);
+  font-family: var(--font-body), sans-serif;
   font-size: 11px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.2s;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
 }
 
 .nav-menu-btn:hover {
-  color: var(--accent);
+  color: var(--accent, #e5c158);
 }
 
 .hamburger {
@@ -129,16 +135,19 @@ a {
   flex-direction: column;
   gap: 4px;
 }
+
 .hamburger span {
   display: block;
   width: 20px;
   height: 1px;
   background: currentColor;
-  transition: all 0.3s ease;
+  transition: width 0.3s ease;
 }
+
 .hamburger span:nth-child(2) {
   width: 14px;
 }
+
 .nav-menu-btn:hover .hamburger span {
   width: 20px;
 }
@@ -148,6 +157,7 @@ a {
   width: auto;
   transition: transform 0.4s ease;
 }
+
 .nav-logo:hover img {
   transform: scale(1.04);
 }
@@ -165,8 +175,9 @@ a {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   position: relative;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
+
 .nav-link::after {
   content: "";
   position: absolute;
@@ -174,12 +185,14 @@ a {
   left: 0;
   width: 0;
   height: 1px;
-  background: var(--accent);
+  background: var(--accent, #e5c158);
   transition: width 0.3s ease;
 }
+
 .nav-link:hover {
-  color: var(--accent);
+  color: var(--accent, #e5c158);
 }
+
 .nav-link:hover::after {
   width: 100%;
 }
@@ -197,12 +210,14 @@ a {
   font-weight: 500;
   letter-spacing: 0.05em;
   transition: all 0.25s ease;
-  position: relative;
+  will-change: transform;
 }
+
 .nav-cart:hover {
-  background: var(--accent);
+  background: var(--accent, #e5c158);
   transform: translateY(-1px);
 }
+
 .nav-cart:active {
   transform: scale(0.97);
 }
@@ -218,10 +233,44 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.25s;
+  transition: background 0.25s ease;
 }
+
 .nav-cart:hover .cart-badge {
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* ── RESPONSIVE RESPONSES (MOBILE/TABLET) ── */
+@media (max-width: 768px) {
+  .nav-inner {
+    padding: 0 1rem; /* tighter spacing for mobile edges */
+  }
+
+  /* Hide regular links to prevent nav congestion */
+  .shop-link,
+  .account-link,
+  .cart-text {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  /* Transform cart button into a clean icon pill */
+  .nav-cart {
+    padding: 0.6rem;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    border: 2px solid #000; /* Separates badge cleanly over elements */
+  }
 }
 
 /* ── HERO ── */
@@ -729,12 +778,6 @@ a {
 @media (max-width: 768px) {
   .split-feature {
     grid-template-columns: 1fr;
-  }
-  .nav-links {
-    display: none;
-  }
-  .promo-bar {
-    font-size: 9.5px;
   }
 }
 
