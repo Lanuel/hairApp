@@ -1,0 +1,90 @@
+import Image from "next/image";
+import Link from "next/link";
+import {
+  formatProductPrice,
+  type Product,
+} from "@/lib/products";
+
+type ProductCardProps = {
+  product: Product;
+  variant?: "store" | "featured";
+};
+
+export default function ProductCard({
+  product,
+  variant = "store",
+}: ProductCardProps) {
+  if (variant === "featured") {
+    return (
+      <div className="product-card">
+        <div className="product-image-wrap">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
+          <span className="product-badge">Best Seller</span>
+          <span className="product-quick-view">Quick View</span>
+        </div>
+
+        <div className="product-body">
+          <h3 className="product-name">{product.name}</h3>
+          <div className="product-meta">
+            <p className="product-price">
+              {formatProductPrice(product.priceFrom)}
+            </p>
+            <div className="rating">
+              {[...Array(5)].map((_, index) => (
+                <span key={index} className="star" />
+              ))}
+            </div>
+          </div>
+          {product.detail ? (
+            <p className="product-detail">{product.detail}</p>
+          ) : null}
+          <button type="button" className="add-to-cart">
+            <span>Add to Cart</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Link href={`/products/${product.slug}`} className="group block">
+      <article
+        data-testid="product-wrapper"
+        className="bg-black border border-white/10 rounded overflow-hidden hover:border-[#bbe917]/50 transition-all duration-300"
+      >
+        <div className="relative overflow-hidden aspect-3/4 w-full">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            loading="lazy"
+            sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
+            className="object-cover object-center group-hover:scale-110 transition-transform duration-500"
+          />
+        </div>
+
+        <div className="p-4">
+          <p
+            data-testid="product-title"
+            className="text-white text-sm mb-2 group-hover:text-[#bbe917] transition-colors"
+          >
+            {product.name}
+          </p>
+          <p
+            data-testid="price"
+            className="text-white/70 text-sm font-medium"
+          >
+            {formatProductPrice(product.priceFrom)}
+          </p>
+        </div>
+      </article>
+    </Link>
+  );
+}
