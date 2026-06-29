@@ -8,7 +8,7 @@ export default function CustomOrderPage() {
           <h1 className="text-4xl sm:text-5xl font-serif text-white mb-4">
             Custom Order
           </h1>
-          <div className="w-16 h-0.5 bg-[#bbe917] mx-auto mb-6" />
+          <div className="w-16 h-0.5 bg-accent mx-auto mb-6" />
           <p className="text-white/60 text-lg max-w-xl mx-auto">
             Your perfect unit, built to your exact specifications.
           </p>

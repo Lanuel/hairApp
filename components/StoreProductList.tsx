@@ -54,7 +54,7 @@ export default function StoreProductList({ products }: StoreProductListProps) {
                 />
                 <span
                   className={`h-2 w-2 rounded-full ${
-                    isActive ? "bg-[#bbe917]" : "bg-white/20"
+                    isActive ? "bg-accent" : "bg-white/20"
                   }`}
                   aria-hidden
                 />
@@ -78,11 +78,11 @@ export default function StoreProductList({ products }: StoreProductListProps) {
 
         <Link
           href="/custom-order"
-          className="block mb-10 p-5 bg-white/5 border border-white/10 rounded-lg hover:border-[#bbe917]/40 transition-colors group"
+          className="block mb-10 p-5 bg-white/5 border border-white/10 rounded-lg hover:border-accent/40 transition-colors group"
         >
           <p className="text-white/80 text-sm">
             Can&apos;t find what you&apos;re looking for?{" "}
-            <span className="font-semibold text-[#bbe917] group-hover:underline">
+            <span className="font-semibold text-gold group-hover:underline">
               Request a custom order →
             </span>
           </p>

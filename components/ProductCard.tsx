@@ -57,7 +57,7 @@ export default function ProductCard({
     <Link href={`/products/${product.slug}`} className="group block">
       <article
         data-testid="product-wrapper"
-        className="bg-black border border-white/10 rounded overflow-hidden hover:border-[#bbe917]/50 transition-all duration-300"
+        className="bg-black border border-white/10 rounded overflow-hidden hover:border-accent/50 transition-all duration-300"
       >
         <div className="relative overflow-hidden aspect-3/4 w-full">
           <Image
@@ -73,7 +73,7 @@ export default function ProductCard({
         <div className="p-4">
           <p
             data-testid="product-title"
-            className="text-white text-sm mb-2 group-hover:text-[#bbe917] transition-colors"
+            className="text-white text-sm mb-2 group-hover:text-gold transition-colors"
           >
             {product.name}
           </p>

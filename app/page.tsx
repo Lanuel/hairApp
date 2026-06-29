@@ -98,10 +98,10 @@ export default function Home() {
               [
                 "100% Virgin Hair",
                 "Handcrafted Wigs",
-                "Free Express Delivery",
+                "Abuja Delivery 24–48 Hrs",
                 "Custom Orders Welcome",
                 "Premium Quality Guaranteed",
-                "Same-Day Dispatch",
+                "Outside Abuja 3–7 Days",
               ].map((item, i) => (
                 <span key={`${loopIndex}-${i}-${item}`} className="ticker-item">
                   {item}
@@ -118,7 +118,8 @@ export default function Home() {
             {[
               { icon: "✦", label: "Virgin Hair Only", sub: "100% unprocessed" },
               { icon: "◈", label: "Custom Orders", sub: "Built to your spec" },
-              { icon: "⬡", label: "Fast Delivery", sub: "Lagos same-day" },
+              { icon: "⬡", label: "Delivery", sub: "Abuja 24–48 hrs" },
+              { icon: "◆", label: "Nationwide", sub: "Outside Abuja 3–7 days" },
               { icon: "◇", label: "Secure Payment", sub: "All cards accepted" },
             ].map((t) => (
               <div key={t.label} className="trust-item">

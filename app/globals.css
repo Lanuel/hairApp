@@ -1,26 +1,29 @@
 @import "tailwindcss";
 
-:root {
-  --background: #000000;
-  --foreground: #ffffff;
+@theme inline {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-accent: #722f37;
+  --color-accent-dark: #5a2229;
+  --color-cream: #f5f0e8;
+  --color-gold: #c9a84c;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
 
-  --accent: #bbe917;
-  --accent-dark: #9dcb00;
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --accent: var(--color-accent);
+  --accent-dark: var(--color-accent-dark);
+  --cream: var(--color-cream);
+  --gold: var(--color-gold);
 
   --font-display: serif;
   --font-body: var(--font-geist-mono);
 
   --nav-promo-height: 40px;
   --nav-bar-height: 72px;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-dark: var(--accent-dark);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 /* Modern reset */
@@ -72,8 +75,8 @@ img {
 }
 
 .promo-bar {
-  background: var(--accent, #e5c158); /* Added fallback */
-  color: #000;
+  background: var(--accent);
+  color: var(--cream);
   text-align: center;
   padding: 0.5rem 1rem;
   font-size: 11px;
@@ -259,6 +262,7 @@ img {
 
   /* Hide regular links to prevent nav congestion */
   .shop-link,
+  .contact-link,
   .account-link,
   .cart-text {
     display: none;
@@ -393,7 +397,7 @@ img {
 
 .hero-title em {
   font-style: italic;
-  color: var(--accent);
+  color: var(--gold);
 }
 
 .hero-sub {
@@ -415,7 +419,7 @@ img {
 .btn-primary {
   padding: 1rem 2.5rem;
   background: var(--accent);
-  color: #000;
+  color: var(--cream);
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.06em;
@@ -423,12 +427,13 @@ img {
   border-radius: 100px;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0 0 0 rgba(187, 233, 23, 0.4);
+  box-shadow: 0 0 0 0 rgba(114, 47, 55, 0.4);
 }
 .btn-primary:hover {
-  background: #fff;
+  background: var(--gold);
+  color: #000;
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(187, 233, 23, 0.3);
+  box-shadow: 0 8px 32px rgba(201, 168, 76, 0.3);
 }
 
 .btn-outline {
@@ -495,7 +500,7 @@ img {
 /* ── MARQUEE TICKER ── */
 .ticker {
   background: var(--accent);
-  color: #000;
+  color: var(--cream);
   padding: 0.75rem 0;
   overflow: hidden;
   display: flex;
@@ -626,11 +631,11 @@ img {
   cursor: pointer;
 }
 .product-card:hover {
-  border-color: rgba(187, 233, 23, 0.2);
+  border-color: rgba(114, 47, 55, 0.35);
   transform: translateY(-8px);
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(187, 233, 23, 0.08);
+    0 0 0 1px rgba(114, 47, 55, 0.12);
 }
 
 .product-image-wrap {
@@ -705,7 +710,7 @@ img {
 }
 
 .product-price {
-  color: var(--accent);
+  color: var(--gold);
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -724,7 +729,7 @@ img {
 .star {
   width: 12px;
   height: 12px;
-  background: var(--accent);
+  background: var(--gold);
   clip-path: polygon(
     50% 0%,
     61% 35%,
@@ -771,7 +776,7 @@ img {
   transform: scaleX(1);
 }
 .add-to-cart:hover {
-  color: #000;
+  color: var(--cream);
   border-color: var(--accent);
 }
 .add-to-cart span {
@@ -806,7 +811,7 @@ img {
 
 .split-content {
   background: var(--accent);
-  color: #000;
+  color: var(--cream);
   padding: 5rem 4rem;
   display: flex;
   flex-direction: column;
@@ -885,7 +890,7 @@ img {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: rgba(187, 233, 23, 0.1);
+  background: rgba(114, 47, 55, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -983,7 +988,7 @@ img {
   font-family: var(--font-display);
   font-size: 2rem;
   line-height: 1;
-  color: var(--accent);
+  color: var(--gold);
 }
 
 .store-count-label {
@@ -1050,7 +1055,7 @@ img {
 }
 
 .store-sort-pill.is-active {
-  color: #000;
+  color: var(--cream);
   background: var(--accent);
   border-color: var(--accent);
 }
@@ -1080,7 +1085,7 @@ img {
 .store-sort-select:hover,
 .store-sort-select:focus-visible {
   outline: none;
-  border-color: rgba(187, 233, 23, 0.35);
+  border-color: rgba(114, 47, 55, 0.45);
 }
 
 .store-custom-banner {
@@ -1090,11 +1095,11 @@ img {
   gap: 1.5rem;
   margin-bottom: 2.5rem;
   padding: 1.5rem 1.75rem;
-  border: 1px solid rgba(187, 233, 23, 0.15);
+  border: 1px solid rgba(114, 47, 55, 0.25);
   border-radius: var(--store-radius);
   background: linear-gradient(
     135deg,
-    rgba(187, 233, 23, 0.08) 0%,
+    rgba(114, 47, 55, 0.12) 0%,
     rgba(255, 255, 255, 0.02) 55%
   );
   transition:
@@ -1104,7 +1109,7 @@ img {
 }
 
 .store-custom-banner:hover {
-  border-color: rgba(187, 233, 23, 0.35);
+  border-color: rgba(114, 47, 55, 0.45);
   transform: translateY(-2px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
 }
@@ -1193,11 +1198,11 @@ img {
 }
 
 .store-card:hover .store-card-inner {
-  border-color: rgba(187, 233, 23, 0.22);
+  border-color: rgba(114, 47, 55, 0.35);
   transform: translateY(-6px);
   box-shadow:
     0 20px 48px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(187, 233, 23, 0.06);
+    0 0 0 1px rgba(114, 47, 55, 0.1);
 }
 
 .store-card-media {
@@ -1314,7 +1319,7 @@ img {
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--accent);
+  color: var(--gold);
 }
 
 @media (min-width: 640px) {

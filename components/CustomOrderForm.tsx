@@ -1,10 +1,10 @@
 const INPUT_CLASS =
-  "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:border-[#bbe917]/60 hover:bg-white/10 transition-colors";
+  "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:border-accent/60 hover:bg-white/10 transition-colors";
 
 const SELECT_CLASS = `${INPUT_CLASS} appearance-none [&>option]:bg-[#1a1a1a] [&>option]:text-white`;
 
 const FILE_INPUT_CLASS =
-  "w-full text-white/70 text-sm file:mr-4 file:py-2.5 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-[#bbe917]/20 file:text-[#bbe917] hover:file:bg-[#bbe917]/30 file:cursor-pointer file:transition-colors";
+  "w-full text-white/70 text-sm file:mr-4 file:py-2.5 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-accent/20 file:text-gold hover:file:bg-accent/30 file:cursor-pointer file:transition-colors";
 
 const LENGTHS = [
   '10"',
@@ -71,7 +71,7 @@ function FieldLabel({
   return (
     <label htmlFor={htmlFor} className="block text-sm text-white/70 mb-1.5">
       {children}
-      {required && <span className="text-[#bbe917]"> *</span>}
+      {required && <span className="text-gold"> *</span>}
     </label>
   );
 }
@@ -229,7 +229,7 @@ export default function CustomOrderForm() {
 
       <button
         type="submit"
-        className="w-full py-4 bg-[#bbe917] text-[#0a0a0a] font-semibold text-lg rounded-md hover:bg-[#9dcb00] transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-4 bg-accent text-cream font-semibold text-lg rounded-md hover:bg-gold hover:text-black transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Submit Custom Order Request
       </button>

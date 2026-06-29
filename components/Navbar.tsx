@@ -1,5 +1,6 @@
 // C:\Users\Lanuel\my-app\components\Navbar.tsx
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
@@ -17,8 +18,8 @@ export default function Navbar() {
       {/* ── STICKY NAV WRAPPER ── */}
       <div className={`nav-wrapper ${scrolled ? "scrolled" : ""}`}>
         <div className={`promo-bar ${scrolled ? "promo-hidden" : ""}`}>
-          Free Shipping on Orders Over ₦150,000 &nbsp;•&nbsp; Code:{" "}
-          <strong>WELCOME150</strong>
+          24 - 48 Hours delivery for orders within Abuja &nbsp;•&nbsp; Code:{" "}
+          <strong>ABV</strong>
         </div>
 
         <header className="navbar">
@@ -47,9 +48,12 @@ export default function Navbar() {
       </a> */}
 
             <div className="nav-links">
-              <a href="/store" className="nav-link shop-link">
+              <Link href="/store" className="nav-link shop-link">
                 Shop
-              </a>
+              </Link>
+              <Link href="/contact" className="nav-link contact-link">
+                Contact
+              </Link>
               <a href="/us/account" className="nav-link account-link">
                 Login
               </a>

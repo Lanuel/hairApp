@@ -1,20 +1,12 @@
 //C:\Users\Lanuel\my-app\components\Footer.tsx
 "use client";
+import Link from "next/link";
 import {
   FaInstagram,
   FaFacebookF,
   FaTiktok,
   FaXTwitter,
 } from "react-icons/fa6";
-import type { SVGProps } from "react";
-
-function XIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M18.901 1.153h3.68l-8.04 9.188L24 22.847h-7.406l-5.8-7.584-6.639 7.584H.472l8.599-9.827L0 1.153h7.594l5.243 6.932L18.901 1.153zM17.61 20.645h2.039L6.486 3.24H4.298L17.61 20.645z" />
-    </svg>
-  );
-}
 
 export default function Footer() {
   return (
@@ -37,26 +29,26 @@ export default function Footer() {
 
             {/* Navigation */}
             <div className="flex flex-wrap justify-center gap-8 text-sm">
-              <a
+              <Link
                 href="/store"
                 className="text-white/60 hover:text-accent transition-colors"
               >
                 Shop
-              </a>
+              </Link>
 
-              <a
-                href="/us/contact"
+              <Link
+                href="/contact"
                 className="text-white/60 hover:text-accent transition-colors"
               >
                 Contact
-              </a>
+              </Link>
 
-              <a
-                href="/us/faq"
+              <Link
+                href="/contact#faq"
                 className="text-white/60 hover:text-accent transition-colors"
               >
                 FAQ
-              </a>
+              </Link>
             </div>
 
             {/* Socials */}
@@ -123,7 +115,7 @@ export default function Footer() {
             </div>
           </div>
           {/* Decorative Gradient Line */}
-          <div className="mt-6 h-px bg-linear-to-r from-transparent via-[#BBE917]/20 to-transparent" />
+          <div className="mt-6 h-px bg-linear-to-r from-transparent via-accent/20 to-transparent" />
         </div>
       </footer>
     </>
