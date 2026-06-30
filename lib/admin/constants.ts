@@ -50,6 +50,25 @@ export const HAIR_COLORS = [
 export const ADMIN_NAV = [
   { href: "/admin/dashboard", label: "Dashboard", icon: "layout-dashboard" },
   { href: "/admin/products", label: "Products", icon: "package" },
+  { href: "/admin/customers", label: "Customers", icon: "users" },
+] as const;
+
+export const ORDER_STATUS_LABELS: Record<string, string> = {
+  PENDING: "Pending",
+  CONFIRMED: "Confirmed",
+  PROCESSING: "Processing",
+  SHIPPED: "Shipped",
+  DELIVERED: "Delivered",
+  CANCELLED: "Cancelled",
+  REFUNDED: "Refunded",
+};
+
+export const ORDER_STATUS_FLOW = [
+  "PENDING",
+  "CONFIRMED",
+  "PROCESSING",
+  "SHIPPED",
+  "DELIVERED",
 ] as const;
 
 export function slugify(value: string): string {

@@ -6,6 +6,7 @@ import Link from "next/link";
 import {
   LayoutDashboard,
   Package,
+  Users,
   ExternalLink,
   Scissors,
   LogOut,
@@ -18,6 +19,7 @@ import { ADMIN_NAV } from "@/lib/admin/constants";
 const iconMap = {
   "layout-dashboard": LayoutDashboard,
   package: Package,
+  users: Users,
 } as const;
 
 type AdminSidebarProps = {
