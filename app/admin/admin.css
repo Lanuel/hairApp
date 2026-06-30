@@ -1,9 +1,11 @@
+/* ── SHELL ── */
 .admin-shell {
   position: fixed;
   inset: 0;
   z-index: 200;
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-rows: 1fr;
   background: #050505;
   color: #fff;
 }
@@ -11,8 +13,10 @@
 .admin-main {
   overflow: auto;
   padding: 2rem;
+  /* sits in the second column on desktop */
 }
 
+/* ── DESKTOP SIDEBAR ── */
 .admin-sidebar {
   display: flex;
   flex-direction: column;
@@ -20,8 +24,29 @@
   padding: 1.5rem;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   background: #080808;
+  overflow-y: auto;
 }
 
+/* hide desktop sidebar on mobile */
+.admin-sidebar-desktop {
+  display: flex;
+}
+
+/* ── MOBILE TOP BAR ── */
+.admin-mobile-topbar {
+  display: none;
+}
+
+/* ── MOBILE DRAWER ── */
+.admin-drawer-overlay {
+  display: none;
+}
+
+.admin-drawer {
+  display: none;
+}
+
+/* ── BRAND ── */
 .admin-brand {
   display: flex;
   align-items: center;
@@ -30,6 +55,7 @@
 
 .admin-brand-icon {
   color: var(--gold);
+  flex-shrink: 0;
 }
 
 .admin-brand-title {
@@ -43,6 +69,7 @@
   color: rgba(255, 255, 255, 0.45);
 }
 
+/* ── NAV ── */
 .admin-nav {
   display: flex;
   flex-direction: column;
@@ -100,6 +127,7 @@
   cursor: pointer;
 }
 
+/* ── HEADER ── */
 .admin-header {
   display: flex;
   align-items: flex-start;
@@ -125,6 +153,7 @@
   flex-shrink: 0;
 }
 
+/* ── STATS ── */
 .admin-stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -158,6 +187,7 @@
   color: rgba(255, 255, 255, 0.45);
 }
 
+/* ── PANEL ── */
 .admin-panel {
   padding: 1.25rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -173,6 +203,7 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
+/* ── FORM ── */
 .admin-form-grid {
   display: grid;
   gap: 1rem;
@@ -248,6 +279,7 @@
   margin-top: 1.5rem;
 }
 
+/* ── BUTTONS ── */
 .admin-btn {
   display: inline-flex;
   align-items: center;
@@ -282,6 +314,7 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
+/* ── TABLE ── */
 .admin-table-wrap {
   overflow: auto;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -407,6 +440,7 @@
   border-color: rgba(239, 68, 68, 0.35);
 }
 
+/* ── MISC ── */
 .admin-empty {
   display: flex;
   flex-direction: column;
@@ -450,6 +484,7 @@
   border-bottom: none;
 }
 
+/* ── LOGIN ── */
 .admin-login-shell {
   min-height: 100vh;
   display: grid;
@@ -490,17 +525,155 @@
   width: 100%;
 }
 
+/* ═══════════════════════════════════════════
+   MOBILE  (≤ 960px)
+   The sidebar turns into a slide-in drawer;
+   a sticky top-bar replaces it.
+═══════════════════════════════════════════ */
 @media (max-width: 960px) {
+  /*
+   * On mobile the shell switches to a simple column flex-box.
+   * AdminSidebar renders ONLY the mobile topbar (visible) + hidden drawer;
+   * the desktop aside is display:none.
+   * admin-main fills the remaining vertical space and scrolls.
+   */
   .admin-shell {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: unset;
   }
 
-  .admin-sidebar {
-    border-right: none;
+  /* Hide desktop sidebar */
+  .admin-sidebar-desktop {
+    display: none !important;
+  }
+
+  /* ── Mobile top bar ── */
+  .admin-mobile-topbar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    height: 56px;
+    background: #080808;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 210;
+  }
+
+  .admin-mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .admin-mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  /* ── Overlay ── */
+  .admin-drawer-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 220;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  /* ── Slide-in drawer ── */
+  .admin-drawer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(280px, 85vw);
+    z-index: 230;
+    background: #080808;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.5rem;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .admin-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .admin-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .admin-drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .admin-drawer-close:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+  }
+
+  /* Main content takes remaining space and scrolls */
+  .admin-main {
+    flex: 1;
+    min-height: 0;
+    padding: 1.25rem 1rem;
+    overflow: auto;
   }
 
   .admin-field-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-main {
+    padding: 1rem 0.75rem;
+  }
+
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .admin-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
