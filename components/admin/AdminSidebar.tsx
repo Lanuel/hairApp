@@ -25,10 +25,16 @@ type AdminSidebarProps = {
 };
 
 export default function AdminSidebar({ adminName }: AdminSidebarProps) {
-  const currentPath = usePathname();
+  const rawPathname = usePathname();
+  // Defer pathname to client to avoid hydration mismatch from proxy.ts rewrites
+  const [currentPath, setCurrentPath] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Close on route change
+  useEffect(() => {
+    setCurrentPath(rawPathname);
+  }, [rawPathname]);
+
+  // Close drawer on route change
   useEffect(() => {
     setDrawerOpen(false);
   }, [currentPath]);
