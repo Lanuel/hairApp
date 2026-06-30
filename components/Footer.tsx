@@ -18,7 +18,7 @@ export default function Footer() {
             {/* Brand */}
             <div className="text-center md:text-left">
               <h3 className="text-white text-xl font-semibold tracking-[0.25em]">
-                GraceT HAIR
+                <a href="/">GraceT HAIR</a>
               </h3>
 
               <p className="mt-3 text-white/50 max-w-sm text-sm leading-relaxed">

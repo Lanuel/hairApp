@@ -1,44 +1,18 @@
-"use client";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import ProductCard from "@/components/ProductCard";
-import { getFeaturedProducts } from "@/lib/products";
+import FeaturedProductsSection from "@/components/FeaturedProductsSection";
+import { getFeaturedProducts } from "@/lib/products.server";
 
-export default function Home() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [scrolled, setScrolled] = useState(false);
-  const featuredRef = useRef<HTMLElement>(null);
+export const dynamic = "force-dynamic";
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Scroll-reveal for featured cards
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("revealed");
-          }
-        });
-      },
-      { threshold: 0.15 },
-    );
-
-    const cards = featuredRef.current?.querySelectorAll(".reveal-card");
-    cards?.forEach((card) => observer.observe(card));
-    return () => observer.disconnect();
-  }, []);
+export default async function Home() {
+  const featuredProducts = await getFeaturedProducts();
 
   return (
     <>
       <main className="min-h-screen bg-black text-white overflow-x-hidden">
         {/* ── HERO ── */}
-        <section className="hero" ref={heroRef}>
+        <section className="hero">
           <div className="hero-media">
             <Image
               src="/wigbanner.webp"
@@ -46,7 +20,6 @@ export default function Home() {
               width={1920}
               height={2368}
               priority
-              onLoad={(e) => e.currentTarget.classList.add("loaded")}
               style={{
                 position: "absolute",
                 top: 0,
@@ -59,11 +32,6 @@ export default function Home() {
           <div className="hero-overlay" />
 
           <div className="hero-content">
-            {/* <div className="hero-eyebrow">
-              <span className="eyebrow-dot" />
-              New Collection — SS25
-            </div> */}
-
             <h1 className="hero-title">
               Hair That Defines
               <br />
@@ -84,11 +52,6 @@ export default function Home() {
               </Link>
             </div>
           </div>
-
-          {/* <div className="hero-scroll">
-            <span>Scroll to explore</span>
-            <div className="scroll-line" />
-          </div> */}
         </section>
 
         {/* ── TICKER ── */}
@@ -132,27 +95,7 @@ export default function Home() {
         </div>
 
         {/* ── FEATURED PRODUCTS ── */}
-        <section className="featured" ref={featuredRef}>
-          <div className="featured-inner">
-            <div className="section-header">
-              <h2 className="section-title">
-                Featured Wigs
-                <span>Editor's Picks</span>
-              </h2>
-              <Link href="/store" className="view-all">
-                View All <span>→</span>
-              </Link>
-            </div>
-
-            <div className="products-grid">
-              {getFeaturedProducts().map((product) => (
-                <div key={product.id} className="reveal-card">
-                  <ProductCard product={product} variant="featured" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FeaturedProductsSection products={featuredProducts} />
 
         {/* ── SPLIT FEATURE ── */}
         <section className="split-feature">
@@ -176,7 +119,7 @@ export default function Home() {
               Our Craft
             </h2>
             <p className="split-body">
-              Work directly with our master stylists to create a wig that's
+              Work directly with our master stylists to create a wig that&apos;s
               uniquely yours — custom length, density, colour, and texture.
             </p>
             <Link href="/custom-order" className="btn-dark">

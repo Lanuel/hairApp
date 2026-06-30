@@ -1,11 +1,21 @@
-// C:\Users\Lanuel\my-app\components\Navbar.tsx
 "use client";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useCart } from "@/components/CartProvider";
 
-export default function Navbar() {
+type NavbarUser = {
+  name?: string | null;
+  email?: string | null;
+};
+
+type NavbarProps = {
+  user?: NavbarUser | null;
+};
+
+export default function Navbar({ user = null }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
-  const [cartCount] = useState(0);
+  const { itemCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -13,9 +23,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const accountLabel = user?.name ?? user?.email ?? "Account";
+
   return (
     <>
-      {/* ── STICKY NAV WRAPPER ── */}
       <div className={`nav-wrapper ${scrolled ? "scrolled" : ""}`}>
         <div className={`promo-bar ${scrolled ? "promo-hidden" : ""}`}>
           24 - 48 Hours delivery for orders within Abuja &nbsp;•&nbsp; Code:{" "}
@@ -37,16 +48,6 @@ export default function Navbar() {
               <span>Menu</span>
             </button>
 
-            {/* <a href="/us" className="nav-logo">
-        <Image
-          src="/logo-white.webp"
-          alt="GraceT Hair"
-          width={180}
-          height={70}
-          priority
-        />
-      </a> */}
-
             <div className="nav-links">
               <Link href="/store" className="nav-link shop-link">
                 Shop
@@ -54,13 +55,13 @@ export default function Navbar() {
               <Link href="/contact" className="nav-link contact-link">
                 Contact
               </Link>
-              <a href="/us/account" className="nav-link account-link">
-                Login
-              </a>
-              <a
-                href="/us/cart"
+              <Link href={user ? "/account" : "/account/login"} className="nav-link account-link">
+                {user ? accountLabel : "Login"}
+              </Link>
+              <Link
+                href="/cart"
                 className="nav-cart"
-                aria-label={`Cart with ${cartCount} items`}
+                aria-label={`Cart with ${itemCount} items`}
               >
                 <svg
                   width="15"
@@ -75,8 +76,10 @@ export default function Navbar() {
                   <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                 </svg>
                 <span className="cart-text">Cart</span>
-                <span className="cart-badge">{cartCount}</span>
-              </a>
+                {itemCount > 0 ? (
+                  <span className="cart-badge">{itemCount}</span>
+                ) : null}
+              </Link>
             </div>
           </nav>
         </header>

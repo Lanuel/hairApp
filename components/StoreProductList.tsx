@@ -93,7 +93,7 @@ export default function StoreProductList({ products }: StoreProductListProps) {
           data-testid="products-list"
         >
           {sortedProducts.map((product) => (
-            <li key={`${product.id}-${product.createdAt}`}>
+            <li key={product.id}>
               <ProductCard product={product} variant="store" />
             </li>
           ))}

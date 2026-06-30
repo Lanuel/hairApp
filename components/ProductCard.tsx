@@ -1,14 +1,46 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  formatProductPrice,
-  type Product,
-} from "@/lib/products";
+import AddToCartButton from "@/components/AddToCartButton";
+import { formatProductPrice, type Product } from "@/lib/products";
 
 type ProductCardProps = {
   product: Product;
   variant?: "store" | "featured";
 };
+
+function ProductImage({
+  src,
+  alt,
+  sizes,
+  className,
+}: {
+  src: string | null;
+  alt: string;
+  sizes: string;
+  className: string;
+}) {
+  if (!src) {
+    return (
+      <div
+        className="absolute inset-0 bg-white/5 flex items-center justify-center text-white/30 text-xs"
+        aria-hidden
+      >
+        No image
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      loading="lazy"
+      sizes={sizes}
+      className={className}
+    />
+  );
+}
 
 export default function ProductCard({
   product,
@@ -18,11 +50,9 @@ export default function ProductCard({
     return (
       <div className="product-card">
         <div className="product-image-wrap">
-          <Image
+          <ProductImage
             src={product.image}
             alt={product.name}
-            fill
-            loading="lazy"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
           />
@@ -45,9 +75,7 @@ export default function ProductCard({
           {product.detail ? (
             <p className="product-detail">{product.detail}</p>
           ) : null}
-          <button type="button" className="add-to-cart">
-            <span>Add to Cart</span>
-          </button>
+          <AddToCartButton productId={product.id} />
         </div>
       </div>
     );
@@ -60,11 +88,9 @@ export default function ProductCard({
         className="bg-black border border-white/10 rounded overflow-hidden hover:border-accent/50 transition-all duration-300"
       >
         <div className="relative overflow-hidden aspect-3/4 w-full">
-          <Image
+          <ProductImage
             src={product.image}
             alt={product.name}
-            fill
-            loading="lazy"
             sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
             className="object-cover object-center group-hover:scale-110 transition-transform duration-500"
           />
@@ -77,10 +103,7 @@ export default function ProductCard({
           >
             {product.name}
           </p>
-          <p
-            data-testid="price"
-            className="text-white/70 text-sm font-medium"
-          >
+          <p data-testid="price" className="text-white/70 text-sm font-medium">
             {formatProductPrice(product.priceFrom)}
           </p>
         </div>

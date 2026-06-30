@@ -1,7 +1,11 @@
 import StoreProductList from "@/components/StoreProductList";
-import { products } from "@/lib/products";
+import { getProducts } from "@/lib/products.server";
 
-export default function StorePage() {
+export const dynamic = "force-dynamic";
+
+export default async function StorePage() {
+  const products = await getProducts();
+
   return (
     <div className="bg-black min-h-screen page-below-nav">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 pb-16">
