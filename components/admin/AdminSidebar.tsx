@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -21,13 +22,10 @@ const iconMap = {
 
 type AdminSidebarProps = {
   adminName: string;
-  currentPath: string;
 };
 
-export default function AdminSidebar({
-  adminName,
-  currentPath,
-}: AdminSidebarProps) {
+export default function AdminSidebar({ adminName }: AdminSidebarProps) {
+  const currentPath = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   // Close on route change
