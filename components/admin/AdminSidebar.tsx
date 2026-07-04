@@ -48,7 +48,7 @@ export default function AdminSidebar({ adminName }: AdminSidebarProps) {
   }, [drawerOpen]);
 
   const navLinks = ADMIN_NAV.map((item) => {
-    const Icon = iconMap[item.icon];
+    const Icon = iconMap[item.icon as keyof typeof iconMap];
     const active =
       currentPath === item.href ||
       (item.href !== "/admin/dashboard" && currentPath.startsWith(item.href));

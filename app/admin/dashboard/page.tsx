@@ -11,12 +11,15 @@ import {
   getOrderStats,
 } from "@/lib/admin/customer-actions";
 
+const FALLBACK_CUSTOMER_STATS = { total: 0, withOrders: 0, newThisMonth: 0 };
+const FALLBACK_ORDER_STATS = { total: 0, pending: 0, revenue: 0 };
+
 export default async function AdminDashboardPage() {
   const [stats, recentProducts, customerStats, orderStats] = await Promise.all([
     getDashboardStats(),
     getRecentProducts(),
-    getCustomerStats(),
-    getOrderStats(),
+    getCustomerStats().catch(() => FALLBACK_CUSTOMER_STATS),
+    getOrderStats().catch(() => FALLBACK_ORDER_STATS),
   ]);
 
   return (

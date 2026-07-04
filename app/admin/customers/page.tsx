@@ -12,8 +12,8 @@ export const metadata = {
 
 export default async function AdminCustomersPage() {
   const [customers, stats] = await Promise.all([
-    getAdminCustomers(),
-    getCustomerStats(),
+    getAdminCustomers().catch(() => [] as Awaited<ReturnType<typeof getAdminCustomers>>),
+    getCustomerStats().catch(() => ({ total: 0, withOrders: 0, newThisMonth: 0 })),
   ]);
 
   return (
@@ -34,10 +34,7 @@ export default async function AdminCustomersPage() {
               : undefined
           }
         />
-        <StatCard
-          label="New This Month"
-          value={stats.newThisMonth}
-        />
+        <StatCard label="New This Month" value={stats.newThisMonth} />
       </div>
 
       <div className="admin-panel">
